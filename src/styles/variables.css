@@ -1,0 +1,126 @@
+:root {
+  /* Card dimensions (based on standard Yu-Gi-Oh proportions) */
+  --card-ratio: 1.45;  /* height:width ratio */
+  --card-width: 100%;
+  --card-border-radius: 4.5%;
+  --card-border-width: 5px;
+  
+  /* Card component proportions (percentage of total card height) */
+  --card-header-height: 7%;    /* Card name and attribute */
+  --card-level-height: 6%;     /* Level stars section */
+  --card-image-height: 50%;    /* Main card image */
+  --card-type-height: 5%;      /* Monster/spell/trap type header */
+  --card-stats-height: 7%;     /* ATK/DEF stats section */
+  --card-text-height: 20%;     /* Card description text */
+  --card-footer-height: 5%;    /* Card footer with code */
+  
+  /* Element sizing (based on card width) */
+  --attribute-emblem-size: 11%; /* Size of element emblem */
+  --level-icon-size: 10%;       /* Size of level star/circle */
+  --stats-icon-size: 8%;        /* Size of ATK/DEF icons */
+  
+  /* Card type colors */
+  --monster-border: #d3a256;
+  --monster-bg: #e7d9ac;
+  --legendary-border: linear-gradient(to bottom, #f8e174, #d4a231);
+  --legendary-bg: linear-gradient(to bottom, #f8e174, #d4a231);
+  --spell-border: #1d9e74;
+  --spell-bg: #c3ebd8;
+  --trap-border: #bc5a84;
+  --trap-bg: #e8c4d2;
+  
+  /* Text sizes (relative to card width) */
+  --card-title-size: 9%;
+  --card-description-size: 5%;
+  --card-stats-size: 6%;
+  --card-type-size: 5%;
+  --card-level-size: 6%;
+  --card-footer-size: 4%;
+  
+  /* Spacing */
+  --card-padding: 6%;
+  --element-spacing: 3%;
+  --internal-margin: 2%;      /* Consistent internal margin for all sections */
+
+  /* Font settings */
+  --card-title-font: 'Arial', sans-serif;
+  --card-text-font: 'Times New Roman', serif;
+  
+  /* Shadow effects */
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  
+  /* Card stats colors */
+  --atk-bg: #ff0000;
+  --def-bg: #0087cb;
+  --stats-text-color: #ffea00;
+  
+  /* Legend badge and card label colors */
+  --legend-badge-bg: linear-gradient(to right, #ffdc5a, #c9a648);
+  --legend-badge-text: #000000;
+  --card-code-color: #000000;
+  
+  /* Base sizes for minimum legibility */
+  --min-title-font-size: 10px;
+  --min-text-font-size: 7px;
+  --min-stats-font-size: 8px;
+  --min-footer-font-size: 6px;
+}
+
+/* Compact mode adjustments */
+.compact {
+  --card-title-size: 7%;
+  --card-description-size: 4%;
+  --card-stats-size: 5%;
+  --card-type-size: 4%;
+  --card-level-size: 5%;
+  --card-footer-size: 3%;
+  
+  /* Compact proportions */
+  --card-header-height: 8%;
+  --card-level-height: 7%;
+  --card-image-height: 60%;
+  --card-type-height: 6%;
+  --card-stats-height: 8%;
+  --card-text-height: 6%;
+  --card-footer-height: 5%;
+}
+
+/* Size-specific adjustments */
+.size-small {
+  --card-border-width: 2px;
+}
+
+.size-medium {
+  --card-border-width: 4px;
+}
+
+.size-large {
+  --card-border-width: 5px;
+}
+
+/* Media query adaptations */
+@media (max-width: 768px) {
+  :root {
+    --card-description-size: 4%;
+    --card-border-width: 3px;
+  }
+}
+
+/* Print-specific variables */
+@media print {
+  :root {
+    /* Standard trading card size (2.5" x 3.5") */
+    --card-print-width: 2.5in;
+    --card-print-height: 3.5in;
+    --card-print-bleed: 0.125in;
+    --card-print-safe-margin: 0.125in;
+    
+    /* Font sizes for print (in points) */
+    --print-title-size: 12pt;
+    --print-type-size: 9pt;
+    --print-description-size: 8pt;
+    --print-stats-size: 10pt;
+    --print-footer-size: 6pt;
+  }
+}
