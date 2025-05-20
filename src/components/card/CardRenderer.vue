@@ -46,6 +46,9 @@ const emit = defineEmits(['click']);
 
 // Provide card data for child components
 provide('cardData', props.card);
+  
+// Provide card size information for child components
+provide('cardSize', props.size);
 
 // Determine if the card should use compact mode
 const isCompact = computed(() => props.size === 'small');

@@ -4,7 +4,11 @@
     :class="frameClasses"
     :style="frameStyle"
   >
+    <!-- Outer black border -->
+    <div class="black-border"></div>
+    <!-- Colored gradient background -->
     <div class="frame-border"></div>
+    <!-- Content area -->
     <div class="frame-content">
       <slot></slot>
     </div>
@@ -117,46 +121,59 @@ const frameStyle = computed(() => {
   width: var(--card-width);
   height: 0;
   padding-bottom: calc(var(--card-width) * var(--card-ratio));
-  overflow: hidden;
+  overflow: visible; /* Changed to visible to show the outer border */
   border-radius: var(--card-border-radius);
-  /* Remove outer border since we're using the frame-border with its own border */
   box-shadow: var(--card-shadow);
   box-sizing: border-box;
   transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000; /* Black background to ensure no gaps */
   
   /* Print dimensions */
   --card-print-width: 2.5in;
   --card-print-height: 3.5in;
   --card-bleed: 0.125in;
   --card-safe-margin: 0.125in;
+  
+  /* Border width variables */
+  --border-width: calc(var(--card-width) * 0.04); /* 4% of card width (20% less than 5%) */
+  --compact-border-width: calc(var(--card-width) * 0.024); /* 2.4% for compact mode (20% less than 3%) */
 }
 
-/* Frame border with bleed area - inner colored border */
+/* Outer black border */
+.black-border {
+  position: absolute;
+  top: calc(var(--border-width) * -1);
+  left: calc(var(--border-width) * -1);
+  right: calc(var(--border-width) * -1);
+  bottom: calc(var(--border-width) * -1);
+  background: #000;
+  border-radius: calc(var(--card-border-radius) + var(--border-width));
+  z-index: 0;
+}
+
+/* Frame border with gradient background */
 .frame-border {
   position: absolute;
-  inset: 0; /* Extend to the inside edge of the black border */
+  inset: 0;
   box-sizing: border-box;
-  border-radius: var(--card-border-radius); /* Match outer border radius */
+  border-radius: var(--card-border-radius);
   background: var(--frame-gradient, none);
   pointer-events: none;
   z-index: 1;
-  border: 4px solid #000; /* Inner black border that matches outer */
 }
 
 /* Content area with safe margins */
 .frame-content {
   position: absolute;
-  inset: 8px; /* 4px black border + 4px inner padding */
+  inset: 0;
   padding: var(--card-safe-margin);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  background: transparent; /* Make transparent to show gradient background */
-  border-radius: calc(var(--card-border-radius) - 8px);
+  background: transparent;
+  border-radius: var(--card-border-radius);
   overflow: hidden;
 }
 
@@ -217,16 +234,12 @@ const frameStyle = computed(() => {
 }
 
 /* Compact mode adjustments */
-.frame-compact {
-  /* No border width adjustment needed */
-}
-
-.frame-compact .frame-border {
-  border-width: 2px;
-}
-
-.frame-compact .frame-content {
-  inset: 6px; /* 2px border + 4px padding */
+.frame-compact .black-border {
+  top: calc(var(--compact-border-width) * -1);
+  left: calc(var(--compact-border-width) * -1);
+  right: calc(var(--compact-border-width) * -1);
+  bottom: calc(var(--compact-border-width) * -1);
+  border-radius: calc(var(--card-border-radius) + var(--compact-border-width));
 }
 
 /* Hover effects (web only) */
@@ -245,6 +258,7 @@ const frameStyle = computed(() => {
     padding-bottom: 0;
     page-break-inside: avoid;
     break-inside: avoid;
+    --border-width: calc(var(--card-print-width) * 0.04); /* 4% for print (20% less than 5%) */
   }
   
   .frame-bleed {
@@ -252,6 +266,13 @@ const frameStyle = computed(() => {
     margin: calc(-1 * var(--card-bleed));
     width: calc(var(--card-print-width) + (2 * var(--card-bleed)));
     height: calc(var(--card-print-height) + (2 * var(--card-bleed)));
+  }
+  
+  .black-border {
+    top: calc(var(--border-width) * -1);
+    left: calc(var(--border-width) * -1);
+    right: calc(var(--border-width) * -1);
+    bottom: calc(var(--border-width) * -1);
   }
   
   .frame-content {
